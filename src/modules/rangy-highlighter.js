@@ -271,6 +271,15 @@ rangy.createModule("Highlighter", ["ClassApplier"], function(api, module) {
             this.classAppliers[classApplier.className] = classApplier;
         },
 
+        setHighlightId: function(highlight, newId) {
+            var highlights = this.highlights;
+            for (var i = 0, len = highlights.length; i < len; ++i) {
+                if (highlights[i].id === highlight.id) {
+                    highlights[i].id = newId
+                }
+            }
+        },
+
         getHighlightForElement: function(el) {
             var highlights = this.highlights;
             for (var i = 0, len = highlights.length; i < len; ++i) {
