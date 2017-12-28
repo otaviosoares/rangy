@@ -242,7 +242,7 @@ rangy.createModule("Highlighter", ["ClassApplier"], function(api, module) {
         },
 
         apply: function() {
-            this.classApplier.applyToRange(this.getRange());
+            this.classApplier.applyToRange(this.getRange(), null, this);
             this.applied = true;
         },
 
