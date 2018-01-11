@@ -329,11 +329,13 @@ rangy.createModule("Highlighter", ["ClassApplier"], function(api, module) {
 
             options = createOptions(options, {
                 containerElementId: null,
-                exclusive: true
+                exclusive: true,
+                forceExclusive: false
             });
 
             var containerElementId = options.containerElementId;
             var exclusive = options.exclusive;
+            var forceExclusive = options.forceExclusive;
 
             var containerElement, containerElementRange, containerElementCharRange;
             if (containerElementId) {
@@ -369,7 +371,7 @@ rangy.createModule("Highlighter", ["ClassApplier"], function(api, module) {
                     if (containerElementId == highlights[j].containerElementId) {
                         highlightCharRange = highlights[j].characterRange;
                         isSameClassApplier = (classApplier == highlights[j].classApplier);
-                        splitHighlight = !isSameClassApplier && exclusive;
+                        splitHighlight = forceExclusive || (!isSameClassApplier && exclusive);
 
                         // Replace the existing highlight if it needs to be:
                         //  1. merged (isSameClassApplier)
@@ -386,7 +388,7 @@ rangy.createModule("Highlighter", ["ClassApplier"], function(api, module) {
                             }
 
                             removeHighlight = true;
-                            if (isSameClassApplier) {
+                            if (isSameClassApplier && !forceExclusive) {
                                 charRange = highlightCharRange.union(charRange);
                             }
                         }
@@ -430,7 +432,8 @@ rangy.createModule("Highlighter", ["ClassApplier"], function(api, module) {
 
             options = createOptions(options, {
                 containerElement: null,
-                exclusive: true
+                exclusive: true,
+                forceExclusive: false
             });
 
             var containerElement = options.containerElement;
@@ -448,7 +451,8 @@ rangy.createModule("Highlighter", ["ClassApplier"], function(api, module) {
 
             return this.highlightCharacterRanges(className, selCharRanges, {
                 containerElementId: containerElementId,
-                exclusive: options.exclusive
+                exclusive: options.exclusive,
+                forceExclusive: options.forceExclusive
             });
         },
 
@@ -458,11 +462,13 @@ rangy.createModule("Highlighter", ["ClassApplier"], function(api, module) {
 
             options = createOptions(options, {
                 containerElementId: null,
-                exclusive: true
+                exclusive: true,
+                forceExclusive: false
             });
 
             var containerElementId = options.containerElementId;
             var exclusive = options.exclusive;
+            var forceExclusive = options.forceExclusive;
             var selection = options.selection || api.getSelection(this.doc);
             var doc = selection.win.document;
             var containerElement = getContainerElement(doc, containerElementId);
@@ -482,7 +488,8 @@ rangy.createModule("Highlighter", ["ClassApplier"], function(api, module) {
 
             var newHighlights = this.highlightCharacterRanges(className, selCharRanges, {
                 containerElementId: containerElementId,
-                exclusive: exclusive
+                exclusive: exclusive,
+                forceExclusive: forceExclusive
             });
 
             // Restore selection
