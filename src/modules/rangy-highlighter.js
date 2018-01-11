@@ -378,7 +378,7 @@ rangy.createModule("Highlighter", ["ClassApplier"], function(api, module) {
                         //  2. partially or entirely erased (className === null)
                         //  3. partially or entirely replaced (isSameClassApplier == false && exclusive == true)
                         if (    (highlightCharRange.intersects(charRange) || highlightCharRange.isContiguousWith(charRange)) &&
-                                (isSameClassApplier || splitHighlight) ) {
+                                (forceExclusive || isSameClassApplier || splitHighlight) ) {
 
                             // Remove existing highlights, keeping the unselected parts
                             if (splitHighlight) {
@@ -387,7 +387,7 @@ rangy.createModule("Highlighter", ["ClassApplier"], function(api, module) {
                                 });
                             }
 
-                            removeHighlight = true;
+                            removeHighlight = !forceExclusive;
                             if (isSameClassApplier && !forceExclusive) {
                                 charRange = highlightCharRange.union(charRange);
                             }
