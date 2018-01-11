@@ -371,7 +371,7 @@ rangy.createModule("Highlighter", ["ClassApplier"], function(api, module) {
                     if (containerElementId == highlights[j].containerElementId) {
                         highlightCharRange = highlights[j].characterRange;
                         isSameClassApplier = (classApplier == highlights[j].classApplier);
-                        splitHighlight = forceExclusive || (!isSameClassApplier && exclusive);
+                        splitHighlight = !isSameClassApplier && exclusive;
 
                         // Replace the existing highlight if it needs to be:
                         //  1. merged (isSameClassApplier)
